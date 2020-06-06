@@ -4,6 +4,8 @@ public class JogoDaVelha {
     private static int jog;
     private static int[][] casa = new int [3][3];
     private static int linha, coluna, win;
+    private static String jogador1, jogador2;
+    private static long inicio;
     private static Scanner leitor = new Scanner(System.in);
 
     public static void desenha(int x, int y) {
@@ -60,16 +62,35 @@ public class JogoDaVelha {
 	    desenha(2, 2);  
     }
 
+    public static void Cadastro() {
+        System.out.println("Digite o nome do jogador 1:");
+        //recebe o nome do jogador 1
+        jogador1 = leitor.next();
+        System.out.println("Digite o nome do jogador 2");
+        //recebe o nome do jogador 2
+        jogador2 = leitor.next();
+    }
+
+    public static void SetTempo() {
+        inicio = System.currentTimeMillis();
+    }
+
+    public static long getTempo() {
+        return (System.currentTimeMillis() - inicio)/1000;
+    }
+
     public static void jogar(int jogador) { 
         // inicializando contador da estrutura while 
         int i = 0; 
         // definindo o jogador da vez 
         if (jogador == 1) { 
             jog = 1; 
+            System.out.println("\n\n Vez do Jogador " + jogador1);
         } else { 
             jog = 2; 
+            System.out.println("\n\n Vez do Jogador " + jogador2);
         } 
-        System.out.println("\n\n Vez do Jogador " + jog); 
+         
         while (i == 0) { 
             linha = 0; // inicializando valor da linha 
             coluna = 0; // inicializando valor da coluna 
@@ -134,6 +155,8 @@ public class JogoDaVelha {
     }
 
     public static void main(String[] args) { 
+        Cadastro();
+        SetTempo();
         int i = 0; 
         // percorre todo o tabuleiro, nas nove posições: 
         for (i = 0; i < 9; i++) { 
@@ -155,12 +178,17 @@ public class JogoDaVelha {
         jogo(); 
         // verifica se houve vencedor 
         System.out.println(); 
-        if (win == 1 || win == 2) { 
-            // informa o vencedor 
-            System.out.println("Jogador " + win + " é o ganhador!");
-        } else { 
-            // se não houve vencedor 
+        if (win == 1) { 
+            // informa que o vencedor foi o jogador 1
+            System.out.println("Jogador " + jogador1 + " é o ganhador!");
+        } else if (win == 2) { 
+            // informa que o vencedor foi o jogador 2
+            System.out.println("Jogador " + jogador2 + " é o ganhador!");
+        } else {
+            // se não houve vencedor
             System.out.println("Não houve vencedor! O jogo foi empate!!"); 
-        } 
+        }
+
+        System.out.println("O tempo total de jogo foi de " + getTempo() + "s ");
     }
 }
